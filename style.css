@@ -1,0 +1,1850 @@
+/* ==UserStyle==
+@name         MyShows — Catppuccin (Mocha)
+@author       heyKaiz
+@namespace    https://userstyles.world/user/orbKaiz
+@description  Catppuccin Style for MyShows.me.
+@version      1.0
+@license      MIT
+==/UserStyle== */
+
+@-moz-document domain("myshows.me") {
+:root {
+  color-scheme: dark;
+  --content-background: #1e1e2e;
+  --sidebar-background: #1e1e2e;
+  --sidebar-icon-gradient: linear-gradient(135deg, rgb(0 224 255) 5%, rgb(218 0 255) 95%);
+  --font-color: #cdd6f4;
+  --link-color: #cba6f7;
+  --link-color-hover: #b4befe;
+  --myshows-color: #cba6f7;
+  --myshows-color-dark: #aa68f8;
+  --myshows-color-deep-dark: #913ef4;
+  --title-color: #bac2de;
+  --border-color: #313244;
+  --bg-popup: #1e1e2e;
+  --bg-tooltip: #d0d0d0;
+  --bg-tooltip-2: #232323;
+  --tooltip-bg-color: #d0d0d0;
+  --info-color: #a6adc8;
+  --bg-gray-color: #2e2e2e;
+  --black-color: #181825
+}
+
+body {
+  color: var(--font-color);
+}
+
+.Footer {
+  background: #181825;
+  color: var(--link-color) !important;
+  padding: 30px 0 40px;
+  position: relative;
+  z-index: 3;
+}
+        
+.LandingLayout {
+  background: var(--content-background);
+}
+.HomeMore__icon {
+  filter: grayscale(1) contrast(1) invert(0.5);
+}
+.AuthAction__login a,
+.DetectAdBlock__modal-link {
+  color: var(--link-color);
+}
+.vfm--overlay {
+  background-color: rgb(0 0 0 / 50%);
+  backdrop-filter: blur(5px);
+}
+
+/*Сайдбар*/
+.Sidebar {
+  border-right: 1px solid #313244;
+}
+.Sidebar__item {
+  border-bottom: 0px;
+  color: #fff;
+  transition: all .1s;
+}
+.Sidebar__item:not(.muted):hover {
+  color: #fff;
+}
+.Sidebar__item.router-link-exact-active { /*Активный пункт сайдбара*/
+  background: linear-gradient(135deg, rgb(49, 50, 68) 5%, rgb(24, 24, 37) 95%);
+}
+.Sidebar__item.muted .Sidebar__item-icon, .Sidebar__item:not(.router-link-exact-active) .Sidebar__item-icon { /*Иконка неактивного пункта сайдбара*/
+  filter: contrast(1) invert(0.23);
+  -webkit-mask-image: linear-gradient(135deg, rgb(255 255 255) 5%, rgb(255 255 255 / 65%) 95%);
+  mask-image: linear-gradient(135deg, rgb(255 255 255) 5%, rgb(255 255 255 / 65%) 95%);
+  transition: all .1s;
+  opacity: 0.6;
+}
+.Sidebar__item:not(.router-link-exact-active):hover .Sidebar__item-icon { /*Иконка сайдбара по наведению*/
+  opacity: 1;
+  filter: brightness(1) contrast(0.5);
+}
+
+.Sidebar__container > a[href*="/"] > .Sidebar__item-before svg use,
+.Sidebar__container > a[href*="/profile/"] > .Sidebar__item-before svg use,
+.Sidebar__container > a[href*="/profile/movies/"] > .Sidebar__item-before svg use,
+.Sidebar__container > a[href*="/profile/next/"] > .Sidebar__item-before svg use,
+.Sidebar__container > a[href*="/profile/friends/#feed"] > .Sidebar__item-before svg use,
+.Sidebar__container > a[href*="/profile/favorites/"] > .Sidebar__item-before svg use,
+.Sidebar__container > a[href*="/profile/recommendations/"] > .Sidebar__item-before svg use {
+  opacity: 0;
+}
+.Sidebar__container > a[href*="/"] > .Sidebar__item-before svg,
+.Sidebar__container > a[href*="/profile/"] > .Sidebar__item-before svg,
+.Sidebar__container > a[href*="/profile/movies/"] > .Sidebar__item-before svg,
+.Sidebar__container > a[href*="/profile/next/"] > .Sidebar__item-before svg,
+.Sidebar__container > a[href*="/profile/friends/#feed"] > .Sidebar__item-before svg,
+.Sidebar__container > a[href*="/profile/favorites/"] > .Sidebar__item-before svg,
+.Sidebar__container > a[href*="/profile/recommendations/"] > .Sidebar__item-before svg {
+  background: var(--sidebar-icon-gradient);
+  -webkit-mask-repeat: no-repeat;
+}
+.Sidebar__container > a[href*="/"] > .Sidebar__item-before svg {
+  -webkit-mask-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCA0NTUgMjM4IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zOnNlcmlmPSJodHRwOi8vd3d3LnNlcmlmLmNvbS8iIHN0eWxlPSJmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MjsiPjxwYXRoIGQ9Ik00NDUuOSw5Ni40NzVsLTY1LjY4OCwtOTYuNDcxbC0zMy4wNjIsMGMtMC44NzEsMCAtMS4zMDQsMCAtMi4xNzUsMC40MzNjLTEuMzA0LDAgLTIuNjA4LDAuNDM0IC0zLjkxNywwLjg2M2MtMi42MDgsMC44NjcgLTUuMjE2LDIuMTY3IC03LjM5Niw0LjMyOWMtMi4xNywyLjE2MyAtMy45MTYsNC4zMjUgLTUuMjE2LDYuOTE3Yy0xLjMwOCwyLjYgLTEuNzQyLDUuMTk2IC0yLjE3NSw3LjM1OGMtMCwxLjI5NiAtMC40MzgsMi41OTYgLTAuNDM4LDMuNDU4bDAsMjEuNjM0YzAsMC40MzMgMy4wNDYsMC44NjIgNi41MjUsMC44NjJjMy40OCwwIDYuNTI1LC0wLjQyOSA2LjUyNSwtMC44NjJsMCwtMjAuNzY3YzAsLTAuODYyIDAsLTEuNzI5IDAuNDM4LC0yLjE2MmMwLjQzMywtMy4wMyAxLjMwNCwtNS4xOTIgMy4wNDIsLTYuNDg4YzAuODc1LC0wLjg2NyAxLjc0MSwtMS4zIDMuMDQ1LC0xLjczM2MwLjQzOCwtMCAxLjMwOSwtMC40MjkgMS43NDIsLTAuNDI5bDI2LjUzOCwtMGw1Ni41NTQsODMuNDkxbC00MDYuMzEzLDBsNTYuNTQ2LC04My40OTFsMjYuNTM4LC0wYzAuNDMzLC0wIDEuMzA0LDAuNDI5IDEuNzQxLDAuNDI5YzEuMzA0LDAuNDMzIDIuMTc1LDAuODY3IDMuMDQyLDEuNzMzYzEuNzQyLDEuMjk2IDIuNjEyLDMuNDU4IDMuMDQ2LDYuNDg4Yy0wLDAuODY2IC0wLDEuMyAwLjQzNywyLjE2NmwwLDIwLjc2M2MwLDAuNDMzIDMuMDQyLDAuODYyIDYuNTI1LDAuODYyYzMuNDc5LDAgNi41MjUsLTAuNDI5IDYuNTI1LC0wLjg2MmwwLC0yMS42MjljMCwtMS4zIDAsLTIuNTk2IC0wLjQzNywtMy40NjNjLTAuNDM0LC0yLjU5NiAtMC44NjcsLTUuMTkyIC0yLjE3NSwtNy4zNTRjLTEuMzA0LC0yLjU5NiAtMy4wNDIsLTQuNzU4IC01LjIxNywtNi45MjFjLTIuMTc1LC0yLjE2NyAtNC43ODMsLTMuNDU4IC03LjM5MiwtNC4zMzNjLTEuMzA4LC0wLjQyOSAtMi42MTIsLTAuODYzIC0zLjkxNiwtMC44NjNjLTAuODcxLDAgLTEuMzA0LDAgLTIuMTc1LC0wLjQzM2wtMzMuMDYzLC0wbC02NS42ODcsOTYuNDc1bC04LjI2NywtMGwxOC4yNzEsMTQxLjAyOWwxOTQuMDIxLDBsMTQuNzkxLC0xMTEuNjEybDE0Ljc5MiwxMTEuNjEybDE5NC4wMjEsMGwxOC4yNzEsLTE0MS4wMjlsLTguMjY3LC0wWm0tMjUzLjE4MywxMTguOTY3bC0xNTQuODcxLC0wbC0xMi42MTMsLTk2LjkwNWwxODAuMSwwLjAwMWwtMTIuNjE2LDk2LjkwNFptMjIzLjYwNCwtMGwtMTU1LjMwNCwtMGwtMTIuNjE3LC05Ni45MDVsMTgwLjUzMywwbC0xMi42MTIsOTYuOTA1WiIgc3R5bGU9ImZpbGw6I2MwMDtmaWxsLXJ1bGU6bm9uemVybzsiLz48L3N2Zz4=");
+}
+.Sidebar__container > a[href*="/profile/"] > .Sidebar__item-before svg {
+  -webkit-mask-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zOnNlcmlmPSJodHRwOi8vd3d3LnNlcmlmLmNvbS8iIHN0eWxlPSJmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MjsiPjxnIGlkPSJtZW51LXNob3dzIj48cGF0aCBkPSJNMTAxLjg5NCw3Ny45MDZjNi42NDIsLTkuNTg0IDQuMjMzLC0yMi45MzUgLTUuMzQxLC0yOS41OTRsLTI4LjkxOSwtMjAuMDg3Yy05LjU3OCwtNi42NTYgLTIyLjkzNiwtNC4yNTMgLTI5LjU5Myw1LjMyNWwtMjAuMDkxLDI4LjkxOWMtMi40NzYsMy41NjIgLTMuODA0LDcuNzk4IC0zLjgwNCwxMi4xMzZjMCw2Ljk1OCAzLjQxNSwxMy40OSA5LjEyOSwxNy40NjFsMjguOTE5LDIwLjA5NmM5LjU4Miw2LjY0OSAyMi45MzcsNC4yNCAyOS41OTMsLTUuMzM3bDIwLjEwNywtMjguOTE5Wm0tMTAxLjg5NCw0MS43NmwxMTkuODMxLC0wbDAsLTEwMC43NzhsLTExOS44MjgsLTBsLTAuMDAzLDEwMC43NzhaIiBzdHlsZT0iZmlsbDojMjExZjIwOyIvPjxwYXRoIGQ9Ik0xMTkuODM3LDBsMCwxMi43MDZsLTI4LjkwNiwwbDguMDEzLC0xMi43MDZsMjAuODkzLDBabS0yOC40NTMsNjguMjAzbC00OC4xOTMsMjguMTgxbC0wLC01Ni4zNTNsNDguMTkzLDI4LjE3MloiIHN0eWxlPSJmaWxsOiNjMDA7Ii8+PHBhdGggZD0iTTg5LjU2NiwwbC04LjAxLDEyLjcwNmwtMTcuMTYyLDBsOCwtMTIuNzA2bDE3LjE3MiwwWm0tNTIuMjQ3LDBsLTguMDEsMTIuNzA2bC0yOC41NjIsMGwwLjA2MiwtMTIuNzA2bDM2LjUxLDBaIiBzdHlsZT0iZmlsbDojMjExZjIwOyIvPjxwYXRoIGQ9Ik02My4wMjIsMGwtOC4wMDksMTIuNzA2bC0xNi45NzIsMGw4LjAwNiwtMTIuNzA2bDE2Ljk3NSwwWiIgc3R5bGU9ImZpbGw6I2MwMDsiLz48L2c+PC9zdmc+");
+}
+.Sidebar__container > a[href*="/profile/movies/"] > .Sidebar__item-before svg {
+  -webkit-mask-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMzAgMTMwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zOnNlcmlmPSJodHRwOi8vd3d3LnNlcmlmLmNvbS8iIHN0eWxlPSJmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MjsiPjxnIGlkPSJtZW51LW1vdmllcyI+PHBhdGggZD0iTTExNC4wMzMsNDUuOTA4Yy0xMC42MjUsLTI3LjAzMiAtNDEuMDk0LC00MC40NjkgLTY4LjEyNSwtMjkuODQ0Yy0yNy4wMzIsMTAuNjI1IC00MC40NjksNDEuMDk0IC0yOS44NDQsNjguMTI1YzEwLjYyNSwyNy4wMzEgNDEuMDk0LDQwLjQ2OSA2OC4xMjUsMjkuODQ0YzI3LjAzMSwtMTAuNjI1IDQwLjMxMiwtNDEuMDk0IDI5Ljg0NCwtNjguMTI1bS04NS45MzgsMTEuNDA2Yy0yLjE4NywtNS42MjUgMC42MjUsLTEyLjE4OCA2LjI1LC0xNC4zNzVjNS42MjUsLTIuMTg4IDEyLjE4OCwwLjYyNSAxNC4zNzUsNi4yNWMyLjE4OCw1LjYyNSAtMC42MjUsMTIuMTg3IC02LjI1LDE0LjM3NWMtNS43ODEsMi4zNDQgLTEyLjE4NywtMC40NjkgLTE0LjM3NSwtNi4yNW0yOS4yMTksNDQuNTMxYy01LjYyNSwyLjE4OCAtMTIuMTg4LC0wLjYyNSAtMTQuMzc1LC02LjI1Yy0yLjE4OCwtNS42MjUgMC42MjUsLTEyLjE4NyA2LjI1LC0xNC4zNzVjNS42MjUsLTIuMTg3IDEyLjE4NywwLjYyNSAxNC4zNzUsNi4yNWMyLjM0NCw1Ljc4MSAtMC40NjksMTIuMTg4IC02LjI1LDE0LjM3NW04LjkwNiwtMzMuNDM3Yy0xLjg3NSwwLjc4MSAtMy45MDYsLTAuMTU3IC00LjY4NywtMi4wMzJjLTAuNzgyLC0xLjg3NSAwLjE1NiwtMy45MDYgMi4wMzEsLTQuNjg3YzEuODc1LC0wLjc4MSAzLjkwNiwwLjE1NiA0LjY4NywyLjAzMWMwLjc4MiwxLjg3NSAtMC4xNTYsMy45MDYgLTIuMDMxLDQuNjg4bTAuMTU2LC0yNi4wOTRjLTIuMTg3LC01LjYyNSAwLjYyNSwtMTIuMTg4IDYuMjUsLTE0LjM3NWM1LjYyNSwtMi4xODggMTIuMTg4LDAuNjI1IDE0LjM3NSw2LjI1YzIuMTg4LDUuNjI1IC0wLjYyNSwxMi4xODcgLTYuMjUsMTQuMzc1Yy01Ljc4MSwyLjM0NCAtMTIuMTg3LC0wLjQ2OSAtMTQuMzc1LC02LjI1bTI5LjIxOSw0NC42ODdjLTUuNjI1LDIuMTg4IC0xMi4xODcsLTAuNjI1IC0xNC4zNzUsLTYuMjVjLTIuMTg3LC01LjYyNSAwLjYyNSwtMTIuMTg3IDYuMjUsLTE0LjM3NWM1LjYyNSwtMi4xODcgMTIuMTg4LDAuNjI1IDE0LjM3NSw2LjI1YzIuMzQ0LDUuNjI1IC0wLjQ2OSwxMi4wMzIgLTYuMjUsMTQuMzc1Ii8+PHBhdGggZD0iTTQxLjM3Niw0LjUwMWMtMzMuNDM3LDEyLjk2OSAtNTAsNTAuNjI1IC0zNi44NzUsODQuMDYzYzEzLjEyNSwzMy40MzcgNTAuNzgyLDQ5Ljg0NCA4NC4wNjMsMzYuODc1YzMzLjI4MSwtMTIuOTY5IDUwLC01MC42MjUgMzYuODc1LC04NC4wNjNjLTEyLjk2OSwtMzMuNDM3IC01MC42MjUsLTUwIC04NC4wNjMsLTM2Ljg3NW00NS4xNTcsMTE1Ljc4MmMtMzAuNjI1LDExLjg3NSAtNjUsLTMuMTI1IC03Ny4wMzIsLTMzLjc1Yy0xMS44NzUsLTMwLjYyNSAzLjEyNSwtNjUgMzMuNzUsLTc3LjAzMmMzMC42MjUsLTEyLjAzMSA2NSwzLjEyNSA3Ny4wMzIsMzMuNzVjMTIuMDMxLDMwLjYyNSAtMy4xMjUsNjUuMTU3IC0zMy43NSw3Ny4wMzIiLz48cmVjdCB4PSI2Ni4zNzYiIHk9IjEyNC4zNDUiIHdpZHRoPSI1OS4zNzUiIGhlaWdodD0iNS40NjkiIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybzsiLz48L2c+PC9zdmc+");
+}
+.Sidebar__container > a[href*="/profile/next/"] > .Sidebar__item-before svg {
+  -webkit-mask-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMjggMTY0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zOnNlcmlmPSJodHRwOi8vd3d3LnNlcmlmLmNvbS8iIHN0eWxlPSJmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MjsiPjxnIGlkPSJtZW51LWNhbGVuZGFyIj48cGF0aCBkPSJNMzYuMzAzLDEyOS44NTVsLTEuNjE5LC03LjQ3OGwxMi43MzIsLTIzLjQyOWMxLjIzMSwtMi4zNCAxLjYyNSwtMy44OTYgMS4xNzUsLTYuMDA2Yy0wLjczNSwtMy4zODcgLTMuMjE5LC01LjI1OSAtNi43MzIsLTQuNWMtMi43NSwwLjU5NCAtNS4yNTMsMi42MSAtNC4zLDcuMDE5bC04LjMxMiwxLjc5N2MtMS43OTQsLTguMzA2IDMuMiwtMTQuNjA2IDEwLjk5NywtMTYuMjk0YzguMDUzLC0xLjc0MSAxNC44OTcsMi4wNjMgMTYuNjY5LDEwLjI0NGMwLjk1LDQuNDA5IC0wLjI2LDcuMTQ3IC0yLjYwNCwxMS40NjlsLTkuNTI1LDE3LjUxNWwxNy41NzUsLTMuODAzbDEuNjE2LDcuNDc4bC0yNy42NzIsNS45ODhabTU3Ljc2LC0xNS45NzVjLTEuNjA3LDIuNDg3IC00LjUsNC44NTMgLTkuMjM1LDUuODc1Yy00LjczMSwxLjAyNSAtOC41NCwwLjEwOSAtMTAuOTUsLTEuNDQ0Yy0zLjQyMiwtMi4yMDMgLTQuNzc4LC01LjM4OCAtNS43NSwtOC42NTZsOC4zMDMsLTEuNzk3YzEuMjI1LDMuNDgxIDMuMzI4LDUuMTY5IDYuNzgyLDQuNDIyYzEuNTk2LC0wLjM0NCAyLjg0MywtMS4wODUgMy42NCwtMi4zMjhjMS4xNTYsLTEuNzg4IDAuOTQ3LC00LjI4MiAwLjMyOCwtNy4xNjNjLTEuMTM0LC01LjI0MSAtMy4zMDYsLTcuODUgLTcuMzMxLC02Ljk3OGMtMy4zODcsMC43MzQgLTQuNTA2LDIuOTgxIC00LjY5Nyw0Ljg5N2wtNy42MDMsMS42NDdsLTUuNTU5LC0yNS42OTRsMjUuOTQ3LC01LjYxNmwxLjYyNSw3LjQ4MmwtMTguNDEzLDMuOTc4bDIuMTE2LDkuNzgxYzAuOTY4LC0xLjQxMyAzLjI3NSwtMy4xMTkgNi4zNDMsLTMuNzgxYzMuNzY5LC0wLjgxMyA2LjkwNywtMC4yMTkgOS4xNjMsMS4yMjhjNC4zNSwyLjgwNiA1Ljc4Nyw2Ljk3OCA2LjcxOSwxMS4yNTljMS4xMDMsNS4xMTMgMS4xNzUsOC44NDQgLTEuNDMyLDEyLjg4OCIgc3R5bGU9ImZpbGw6I2MwMDsiLz48cGF0aCBkPSJNMTEwLjQyMiwxNTYuNzE0Yy00Ljk0NCwwIC05LjAxMywtNC4wNjggLTkuMDEzLC05LjAxMmMwLC00Ljk0NSA0LjA2OSwtOS4wMTMgOS4wMTMsLTkuMDEzYzQuOTQ1LDAgOS4wMTQsNC4wNjkgOS4wMTQsOS4wMTRjLTAsNC45NDUgLTQuMDY5LDkuMDE0IC05LjAxNCw5LjAxNG0tNTguNzUsLTEwLjIxMmMtMTEuNTM3LDIuMzY5IC0yMi45ODEsLTUuMTY5IC0yNS4zNTksLTE2LjcwM2wtOC41NjMsLTQxLjYxM2MtMi4zODEsLTExLjYxMiA1LjA5NCwtMjIuOTY5IDE2LjcsLTI1LjM1bDQxLjYxMywtOC41NjJjMTEuNTM2LC0yLjM3MSAyMi45ODIsNS4xNjUgMjUuMzYyLDE2LjdsOC41NDcsNDEuNmMwLjI5NCwxLjQyNiAwLjQ0MiwyLjg3OCAwLjQ0Miw0LjMzNGMwLDEwLjE1IC03LjE5OCwxOC45ODEgLTE3LjEzOSwyMS4wMjhsLTQxLjYwMyw4LjU2NlptNjEuNDg0LC0xMTAuMjkxbC00MSwwbDguOTQ3LC0xMy45NDRjNC4zOTksLTAuMzYgNy44MjgsLTQuMDc3IDcuODM1LC04LjQ5Yy0wLjA4OSwtNC42MTYgLTMuOTEsLTguMzY1IC04LjUyNywtOC4zNjVjLTQuNjE3LC0wIC04LjQzOCwzLjc0OSAtOC41MjcsOC4zNjVjMCwyLjMzMSAwLjkzOCw0LjQ0NyAyLjQ1NCw1Ljk3NWwtMTAuNTYzLDE2LjQ1OWwtMy42NzIsMGwtOC40NjUsLTE0Ljk1NmMyLjMyLC0yLjMzNSAzLjYyNCwtNS40OTcgMy42MjQsLTguNzg5Yy0wLC02Ljg0IC01LjYyOSwtMTIuNDY5IC0xMi40NjksLTEyLjQ2OWMtNi44NCwtMCAtMTIuNDY5LDUuNjI5IC0xMi40NjksMTIuNDY5YzAsNi44NCA1LjYyOSwxMi40NjggMTIuNDY5LDEyLjQ2OGMwLjg0OCwwIDEuNjkzLC0wLjA4NiAyLjUyMywtMC4yNTdsNi4zOTMsMTEuNTMxYzAsLTAgLTM3LjEyNywtMCAtMzcuMTI4LC0wYy03Ljk5OSwtMCAtMTQuNTgxLDYuNTgyIC0xNC41ODEsMTQuNTgxYzAsMC4wMDEgMCwwLjAwMiAwLDAuMDAzbDAsOTguNTc1YzAsMC4wMDEgMCwwLjAwMiAwLDAuMDAzYzAsNy45OTYgNi41NzksMTQuNTc1IDE0LjU3NSwxNC41NzVjMC4wMDEsMCAwLjAwMiwwIDAuMDAzLDBsOTguNTc4LDBjMC4wMDEsMCAwLjAwMiwwIDAuMDAzLDBjNy45OTQsMCAxNC41NzIsLTYuNTc4IDE0LjU3MiwtMTQuNTcxYzAsLTAuMDAzIDAsLTAuMDA1IDAsLTAuMDA3bDAsLTk4LjU3OGMwLC03Ljk5NiAtNi41NzksLTE0LjU3NiAtMTQuNTc1LC0xNC41NzgiIHN0eWxlPSJmaWxsOiMyMDFlMjA7Ii8+PC9nPjwvc3ZnPg==");
+}
+.Sidebar__container > a[href*="/profile/friends/#feed"] > .Sidebar__item-before svg {
+  -webkit-mask-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxNDIgMTIzIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zOnNlcmlmPSJodHRwOi8vd3d3LnNlcmlmLmNvbS8iIHN0eWxlPSJmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MjsiPjxnIGlkPSJtZW51LWZyaWVuZHMiPjxwYXRoIGQ9Ik0xMDMuMTE2LDg1LjQ2NmMtMCwtMC4wMDIgLTAsLTAuMDAzIC0wLC0wLjAwNWMtMCwtMi42NDcgLTIuMTc4LC00LjgyNSAtNC44MjUsLTQuODI1Yy0yLjY0NiwtMCAtNC44MjMsMi4xNzUgLTQuODI1LDQuODJjMC4wNjMsMi42MDIgMi4yMjEsNC43MDcgNC44MjMsNC43MDdjMi41OTksMCA0Ljc1NSwtMi4wOTkgNC44MjQsLTQuNjk3bTE1Ljg0MywtMGMwLC0wLjAwMiAwLC0wLjAwMyAwLC0wLjAwNWMwLC0yLjY0NyAtMi4xNzgsLTQuODI1IC00LjgyNSwtNC44MjVjLTIuNjQ1LC0wIC00LjgyMiwyLjE3NSAtNC44MjUsNC44MmMwLjA2NCwyLjYwMiAyLjIyMSw0LjcwNyA0LjgyNCw0LjcwN2MyLjU5OSwwIDQuNzU1LC0yLjA5OSA0LjgyMywtNC42OTdtMTUuMjg4LC0wYzAuMDAxLC0wLjA0MyAwLjAwMSwtMC4wODUgMC4wMDEsLTAuMTI4YzAsLTIuNjQ3IC0yLjE3OCwtNC44MjUgLTQuODI1LC00LjgyNWMtMi42NDcsMCAtNC44MjUsMi4xNzggLTQuODI1LDQuODI1YzAsMC4wNCAwLjAwMSwwLjA3OSAwLjAwMiwwLjExOGMwLjA2MywyLjYwMiAyLjIyMSw0LjcwNyA0LjgyMyw0LjcwN2MyLjU5OSwwIDQuNzU1LC0yLjA5OSA0LjgyNCwtNC42OTdtNy42MjUsLTcuMjE5Yy0wLC0wIC0wLDEzLjM4MyAtMCwxMy4zODRjLTAsOC40MDkgLTYuOTIsMTUuMzI4IC0xNS4zMjgsMTUuMzI4Yy0wLjAwMywwIC0xNC4xNTQsMCAtMTQuMTU0LDBsLTIzLjIwMywxNS41NDRsNS44MTMsLTE3LjA2MmMtNS4yNzUsLTIuNTcgLTguNjM3LC03Ljk0NSAtOC42NDEsLTEzLjgxM2MwLDAgMCwtMTMuMzg4IDAsLTEzLjM5YzAsLTguNDA5IDYuOTE5LC0xNS4zMjkgMTUuMzI4LC0xNS4zMjljMC4wMDIsMCAwLjAwNCwwIDAuMDA3LDBsMjQuODQzLDBjMC4wMDIsMCAwLjAwNCwwIDAuMDA3LDBjOC40MDgsMCAxNS4zMjgsNi45MiAxNS4zMjgsMTUuMzI5Yy0wLDAuMDAyIC0wLDAuMDA0IC0wLDAuMDA2IiBzdHlsZT0iZmlsbDojYzAwOyIvPjxwYXRoIGQ9Ik0yNi44NzUsMzUuMDkxYzAuMDA0LC0wLjEwMiAwLjAwNiwtMC4yMDUgMC4wMDYsLTAuMzA3YzAsLTQuMTE3IC0zLjM4OCwtNy41MDYgLTcuNTA2LC03LjUwNmMtNC4xMTgsMCAtNy41MDYsMy4zODkgLTcuNTA2LDcuNTA2Yy0wLDAuMTAyIDAuMDAyLDAuMjA1IDAuMDA2LDAuMzA3YzAuMTYzLDMuOTk5IDMuNDk4LDcuMiA3LjUsNy4yYzQuMDAyLC0wIDcuMzM3LC0zLjIwMSA3LjUsLTcuMm0yMy43NzgsLTBjMCwtMC4wMDEgMCwtMC4wMDEgMCwtMC4wMDJjMCwtNC4xMTcgLTMuMzg4LC03LjUwNSAtNy41MDUsLTcuNTA1Yy00LjExNiwwIC03LjUwMywzLjM4NyAtNy41MDQsNy41MDRjLTAsMCAtMCwwLjAwMSAtMCwwLjAwMWMtMCw0LjExNyAzLjM4Nyw3LjUwNSA3LjUwNCw3LjUwNWM0LjExNywtMCA3LjUwNCwtMy4zODcgNy41MDUsLTcuNTAzbTI0LjY0NywtMGMwLC0wLjAwMSAwLC0wLjAwMSAwLC0wLjAwMmMwLC00LjExNyAtMy4zODgsLTcuNTA1IC03LjUwNSwtNy41MDVjLTQuMTE2LDAgLTcuNTA0LDMuMzg3IC03LjUwNCw3LjUwNGMtMCwwIC0wLDAuMDAxIC0wLDAuMDAxYy0wLDQuMTE3IDMuMzg3LDcuNTA1IDcuNTA0LDcuNTA1YzQuMTE3LC0wIDcuNTA0LC0zLjM4NyA3LjUwNSwtNy41MDNtMTEuMDU2LC0xMS4yNWwwLDIwLjg0YzAuMDAzLDkuMTI0IC01LjIzMSwxNy40ODIgLTEzLjQ0LDIxLjQ2M2w5LjA1LDI2LjU1NmwtMzYuMDk0LC0yNC4xNjZsLTIyLjAxNiwwYy0wLjAwNCwwIC0wLjAwOCwwIC0wLjAxMiwwYy0xMy4wODEsMCAtMjMuODQ0LC0xMC43NjMgLTIzLjg0NCwtMjMuODQzYy0wLC0wLjAwMyAwLC0wLjAwNyAwLC0wLjAxbDAsLTIwLjg0YzAuMDAyLC0xMy4wNzkgMTAuNzY1LC0yMy44NDEgMjMuODQ0LC0yMy44NDFjMC4wMDMsLTAgMC4wMDYsMCAwLjAwOSwwbDM4LjY1LDBjMC4wMDMsMCAwLjAwNiwtMCAwLjAxLC0wYzEzLjA3OSwtMCAyMy44NDIsMTAuNzYyIDIzLjg0MywyMy44NDEiIHN0eWxlPSJmaWxsOiMyMTFmMjA7Ii8+PC9nPjwvc3ZnPg==");
+}
+.Sidebar__container > a[href*="/profile/favorites/"] > .Sidebar__item-before svg {
+  -webkit-mask-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxMjQgMTI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zOnNlcmlmPSJodHRwOi8vd3d3LnNlcmlmLmNvbS8iIHN0eWxlPSJmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MjsiPjxnIGlkPSJtZW51LWZhdm9yaXRlcyI+PHBhdGggZD0iTTYxLjY1OSwwbDE1Ljg3OSw0NS4xNzhsNDUuNzcxLDEuOTIybC0zNS45NTMsMjkuODQ0bDEyLjQwNyw0Ni4zNjlsLTM4LjEwNywtMjYuNzM1bC0zOC4xMDYsMjYuNzM0bDEyLjQwNiwtNDYuMzY4bC0zNS45NTYsLTI5Ljg0NGw0NS43NjksLTEuOTIybDE1Ljg5LC00NS4xNzhaIiBzdHlsZT0iZmlsbDojYzAwOyIvPjwvZz48L3N2Zz4=");
+}
+.Sidebar__container > a[href*="/profile/recommendations/"] > .Sidebar__item-before svg {
+  -webkit-mask-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxNTMgMTM1IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zOnNlcmlmPSJodHRwOi8vd3d3LnNlcmlmLmNvbS8iIHN0eWxlPSJmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MjsiPjxnIGlkPSJtZW51LXJlY29tZW5kYXRpb25zIj48Zz48cGF0aCBkPSJNMTQyLjQsMzguMzU5bDEwLjIxMywxOS4wNTNsLTQ1LjY1Nyw0LjIwNGwzNS40NDQsLTIzLjI1N1oiIHN0eWxlPSJmaWxsOiMyMTFmMjA7Ii8+PC9nPjxwYXRoIGQ9Ik0xNDguMDE2LDg1LjU3MmwwLjk1NiwyMC4xNjJsLTI1LjQ1MywtMTMuMTc1bDI0LjQ5NywtNi45ODdaIiBzdHlsZT0iZmlsbDojYzAwOyIvPjxwYXRoIGQ9Ik04Ny45NjYsNTIuODM4bC03LjM5MSwtMTkuMzI5bC00NC45NDQsNDQuMjcybDUyLjMzNSwtMjQuOTQ0Wm0tMi4yLC0zMi4xMDlsMzUuMDE4LDkxLjUyMmwtMTIwLjc4NCwtNi4yNDRsODUuNzY2LC04NS4yNzhaIiBzdHlsZT0iZmlsbDojMjExZjIwOyIvPjxwYXRoIGQ9Ik0xMDUuODc4LDBsMTMuMjEzLDE1LjAzMWwtMjAuNTI1LDE0LjU1Nmw3LjMxMiwtMjkuNTg3Wm0tMzIuNjE5LDExMy45MTJsNS43NTcsMC4zMDRjLTAuNTkxLDExLjM3NiAtMTAuMTEyLDIwLjQxNiAtMjEuNTA0LDIwLjQxNmMtMTEuODEyLDAgLTIxLjUzMiwtOS43MiAtMjEuNTMyLC0yMS41MzJjMCwtMC4zNzIgMC4wMSwtMC43NDQgMC4wMjksLTEuMTE2bDUuNzQ0LDAuM2MtMC4wMzUsMC40MjggLTAuMDUyLDAuODU4IC0wLjA1MiwxLjI4N2MtMCw4LjY1OCA3LjEyMywxNS43ODIgMTUuNzgxLDE1Ljc4MmM4LjUyOCwtMCAxNS41OTMsLTYuOTE0IDE1Ljc3NywtMTUuNDQxIiBzdHlsZT0iZmlsbDojYzAwOyIvPjwvZz48L3N2Zz4=");
+}
+
+
+/*Шапка*/
+.UserHeader,
+.UserHeader__name {
+  color: var(--title-color);
+}
+.UserHeader__friends-link,
+.UserHeader__friends-link:hover {
+  color: var(--title-color);
+  text-decoration: underline;
+}
+.UserHeader__friends-col:before,
+.UserHeader__stats:before {
+  background: none;
+  width: 0;
+  border-left: 1px solid #474747;
+}
+
+.nuxt-loading-indicator {
+  background: linear-gradient(135deg, rgb(65 148 255) 5%, #e741ff 95%) !important;
+}
+
+/*Ссылки*/
+.Trailers__card-title,
+.NewsNotification__title {
+  color: var(--link-color);
+}
+.link:hover,
+a:hover,
+.ProfileNav.list .ProfileNav-item:hover,
+.ProfileNav.list .ProfileNav-logout:hover,
+.UserBlock__all-link:hover,
+.UserFriendsBlock__card:hover .UserFriendsBlock__name,
+.recommendation-col a:hover .recommendation-col-title,
+.recommendation-col__link:hover .recommendation-col-title,
+.UserHeader__dropdown-link:hover,
+.info-row__value a:hover,
+.ShowDetails-report-button:hover,
+.Note__edit-button:hover,
+.Share__title:hover,
+.Share__dropdown-link:hover .Share__dropdown-link-title,
+.ShowItem__link:hover .ShowItem__title,
+.show-characters__show-all:hover,
+.EpisodeRatingCard:hover .EpisodeRatingCard__title,
+.AchievementsList__item:hover,
+.achievement-item:hover .achievement-item__title,
+.UserItem:not(.UserItem--active):hover .UserItem-login,
+.aside-user-lists__list>a:hover span,
+.Unwatched-showTitle:hover div span:first-child,
+.ShowsTable__sort:hover,
+.CustomBackground__button:hover,
+.Comment__name:hover,
+.Comment__anchor:hover,
+.Trailers__toggle:hover,
+.Trailers__card:hover .Trailers__card-title,
+.UnwatchedMovies__show-title:hover div span:first-child,
+.EpisodeItem:hover .EpisodeItem-show,
+.EpisodeDescription__link:hover,
+.movie-item:hover .movie-item__movie {
+  text-decoration: none;
+  color: var(--link-color-hover);
+}
+.LangSwitcher-options {
+  background:#313244;
+}
+.LangSwitcher-option:hover {
+  color: var(--title-color);
+}
+.link.pseudo:hover,
+.SearchFilter__collapse:hover {
+  color: #ff7e7e !important;
+  text-decoration: none;
+}
+.Share__title:hover .Share__title-icon,
+.Share__dropdown-link:hover .Share__dropdown-link-icon,
+.Note__edit-button:hover .Note__edit-button-icon {
+  color: var(--link-color-hover);
+}
+.search-results__show-all-results:hover {
+  text-decoration: underline;
+}
+.UserSocial__item:hover {
+  color: #0d0d0d;
+}
+
+/*Скругления*/
+.recommendation-col__pic img, .recommendation-col__pic-overlay,
+.recommendation-col__pic,
+.ShowCatalogCard__poster-image, .ShowCatalogCard__poster-placeholder,
+.ShowCatalogCard__poster,
+.movie-poster__picture,
+.movie-active-poster,
+.movie-active-poster__overlay,
+.ShowItem__poster-image,
+.NewsItem__pic,
+.ShowItem__poster,
+.UserShowItem-image img,
+.PicturePoster-placeholder,
+.movie-active-poster__info-place,
+.RecommendationsList__img,
+.ReadAlsoMain__image,
+.recommendation-col__pic__placeholder-background,
+.recommendation-col__pic:hover .recommendation-col__pic-overlay,
+.UserShowItem-placeholder {
+  border-radius: 10px;
+}
+.ShowCatalogCard {
+  border-radius: 12px 12px 10px 10px;
+}
+.ShowCatalogCard__poster-image, .ShowCatalogCard__poster-placeholder,
+.ShowCatalogCard__poster {
+  border-radius: 10px 10px 0 0;
+}
+.ShowCatalogCard__poster {
+  mask-image: radial-gradient(circle, white, black);
+}
+.ShowStatusBar__option:first-child {
+  border-radius: 0 0 0 10px;
+}
+.ShowStatusBar__option:last-child {
+  border-radius: 0 0 10px 0;
+}
+.ShowDetails-poster .PicturePoster {
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  background: var(--bg-gray-color);
+}
+.episode-details-poster .PicturePoster,
+.EpisodeItem-pic-wrapper {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.EpisodeRatingCard__poster, .EpisodeItem-pic.placeholder,
+.ShowRatingPage__poster {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/*Уведомление-баннер на главной*/
+.NewsNotification,
+.OneTapAuthNotification {
+  background: #2e2e2e;
+}
+.NewsNotification__close:hover,
+.OneTapAuthNotification__close:hover {
+  color: #fff;
+}
+
+.Tabs.default .TabsItem.active {
+  border-bottom: 0;
+  color: var(--font-color);
+}
+.Tabs.default .TabsItem:hover {
+  color: var(--font-color);
+}
+
+.Tabs.default .TabsItem:not(:last-child) .TabsItem-container {
+  border-right: 0px solid #3d3d3d;
+}
+
+.Tabs.default .Tabs-container {
+  border-bottom: 1px solid #3d3d3d;
+}
+
+.Feed-group {
+  border-top: 1px solid #555;
+}
+
+.FeedItem:not(:last-child) {
+  border-bottom: 0;
+}
+
+.ManageListsRow {
+  border-top: 0;
+}
+
+.UserPage__hr {
+  background: #3b3b3b;
+}
+
+.title__secondary,
+.title__secondary-s,
+.title__primary {
+  color: var(--title-color);
+}
+
+.info-row sup,
+.AddPosterButton {
+  color: var(--info-color);
+}
+
+/*Звёздочки*/
+.Rating__star {
+  filter: invert(1) hue-rotate(184deg) saturate(10) brightness(1) contrast(0.65);
+}
+.Rating__star-left:before,
+.Rating__star-right:before {
+  transition: none;
+}
+
+.UserShowItem-watched {
+  color: #cba6f7;
+}
+
+/*Переключалка фильмов*/
+.Switcher-toggler {
+  background: #2d2d2d;
+  border: 1px solid #505050;
+}
+.Switcher-toggler:after {
+  background: #b8b8b8;
+}
+.Switcher input:checked~.Switcher-toggler {
+  background: #11900e;
+  border-color: #298b27;
+}
+
+.Switcher input:checked~.Switcher-toggler:after {
+  background: #dfffd2;
+}
+
+.UserBlock__all-link {
+  color: var(--link-color);
+}
+
+/*Статистика просмотра по дням*/
+.DailyDistribution-day {
+  background: #181825;
+}
+.DailyDistribution-day.l1 {
+  background: #48605c;
+}
+.DailyDistribution-day.l2 {
+  background: #6d958e;
+}
+.DailyDistribution-day.l3 {
+  background: #6ab0a4;
+}
+.DailyDistribution-day.l4 {
+  background: #92e2d5;
+}
+.DailyDistribution-info {
+  background: var(--bg-popup);
+  box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 50%);
+  border-radius: 10px;
+  border: 0;
+  margin: 5px;
+  padding: 12px 15px;
+  font-size: 14px;
+}
+
+.BubbleTabs {
+  background-color: #313244;
+}
+
+.BubbleTabs__tab {
+  color: #cba6f7;
+}
+
+/*Блок статистики просмотров*/
+.UserStatisticsBlock__info-value {
+  color: var(--title-color);
+}
+.UserStatisticsBlock__progress:first-child .UserStatisticsProgress__bar-value {
+  background-color: var(--myshows-color-dark);
+}
+.UserStatisticsProgress__value {
+  color: var(--title-color);
+}
+.UserStatisticsProgress__bar {
+  background: #403f3f;
+}
+
+/*Иконка облачка коммента в ленте*/
+.FeedItem-icon {
+  filter: grayscale(1) contrast(0.5) invert(1);
+}
+
+/*Статистика и тренды*/
+.Wasted-header-container .GenresChart {
+  filter: invert(1) hue-rotate(170deg) contrast(1.3) drop-shadow(0px 0px 0px #fff);
+}
+.Wasted-timeCaption {
+  color: var(--info-color);
+}
+.TrendsChart {
+  filter: invert(1) hue-rotate(170deg) contrast(0.8);
+}
+
+/*Комменты*/
+.Comment {
+  background: transparent;
+}
+.Comment--new {
+  background: linear-gradient(270deg, #2d2d2e, #1e1e2e);
+  box-shadow: inset -4px 0px 0px 0px #8c8c8c;
+}
+.Comment__branch {
+  border-left: 1px solid #3d3d3d;
+}
+.Comment__branch:before {
+  border-color: #3d3d3d;
+}
+.CommentFooter__vote--negative:hover {
+  background: var(--myshows-color-dark);
+}
+.comment-voters__hand--positive .comment-voters__hand-img {
+  color: #64b702;
+  fill: #64b702;
+}
+.comment-voters__hand--negative .comment-voters__hand-img {
+  color: var(--myshows-color-dark);
+  fill: var(--myshows-color-dark);
+}
+.comment-voters__voter--positive a {
+  color: #64b702;
+}
+.comment-voters__voter--positive a:hover,
+.comment-voters__voter--negative a:hover {
+  text-decoration: underline;
+}
+.CommentFooter__vote--positive:hover {
+  background: #64b702;
+}
+.CommentFooter__vote--positive-voted {
+  background: #64b702 !important;
+}
+.CommentRating.positive {
+  color: #64b702;
+}
+.CommentRating.negative {
+  color: #ff3131;
+}
+.CommentRatingVoters__tip-rate-icon {
+  color: #3e3e3e;
+}
+.Comment__text--showable:hover {
+  color: #d2d2d2;
+}
+.comment-form__file_name {
+  color: var(--info-color);
+}
+.CommentsNavigation {
+  margin-top: 5px;
+}
+.CommentsNavigation, .CommentsNavigation__button {
+  background: #404040;
+  bottom: 5px;
+  border-radius: 50px;
+  overflow: hidden;
+}
+.CommentsNavigation__button {
+  color: var(--font-color);
+}
+@supports (-moz-appearance:none) {
+.Comment--new { background:none; }
+}
+
+/*Аватары*/
+.UserAvatar-image-wrapper,
+.Comment__avatar-image {
+  border: 1px solid #1e1e2e;
+}
+.UserAvatar,
+.Comment__avatar {
+  border: 2px solid var(--border-color);
+}
+.UserFriendsBlock__avatar-image {
+  border: 0px;
+  padding: 3px;
+}
+.UserFriendsBlock__avatar:before {
+  border: 2px solid #3d3d3d;
+}
+.UserFriendsBlock__avatar--f:before,
+.Comment__avatar--f {
+  border-color: var(--color-female);
+}
+.UserFriendsBlock__avatar--m:before,
+.Comment__avatar--m {
+  border-color: var(--color-male);
+}
+.UserFriendsBlock__add-icon {
+  border: 2px solid #484848;
+  color: #484848;
+}
+.AvatarUploader .UserAvatar {
+  border-radius: 100px;
+  overflow: hidden;
+  height: 100px;
+  width: 100px;
+}
+.UserAvatarAction {
+  background-color: #000;
+  border: 0;
+}
+
+/*Тёмные аватары*/
+.UserAvatar-image[src*="default-user-avatar-normal.png"],
+.UserFriendsBlock__avatar-image[src*="default-user-avatar-normal.png"],
+.Comment__avatar [src*="default-user-avatar-normal.png"] {
+  filter: invert(1) contrast(1.2) brightness(4) grayscale(1);
+  border: 0;
+}
+.HeaderLogin__user svg,
+.HeaderLogin__user-link svg,
+.Modal__icon svg {
+  filter: invert(0.8) contrast(1.4) brightness(1.8)
+}
+
+.HeaderLogin__dropdown {
+  background: #181825;
+  display: none;
+  left: 0;
+  padding: 0 14px;
+  position: absolute;
+  top: 0;
+  width: 200px;
+}
+    
+/*Топ-ссылки на странице сериала*/
+.TopNavigation__wrapper {
+  gap: 8px;
+}
+.TopNavigation__link {
+  background: #313244;
+  border: 0px;
+  color: #a6adc8;
+  padding: 4px 9px 5px 9px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.TopNavigation__link:hover {
+  background-color: #7f849c !important;
+}
+.TopNavigation__link--active, .TopNavigation__link.router-link-exact-active, .TopNavigation__link:hover {
+  background-color: var(--myshows-color-dark);
+  border-color: var(--myshows-color-dark);
+  color: #ffffff;
+}
+
+/*Кнопки Смотрю-Буду*/
+.ShowStatusBar__option:not(:last-child),
+.movie-status-bar__option:not(:last-child) {
+  margin-right: 2px;
+}
+.ShowStatusBar__option,
+.movie-status-bar__option {
+  background: #313244;
+  color: #a6adc8;
+  transition: all .3s;
+}
+.ShowStatusBar__option:hover,
+.movie-status-bar__option:hover {
+  filter: brightness(1.2);
+}
+.ShowStatusBar__option--active,
+.movie-status-bar__option.active,
+.ShowStatusBar__option--active:hover,
+.movie-status-bar__option.active:hover {
+  background: var(--myshows-color-deep-dark);
+  color: #cdd6f4;
+  filter: none;
+  cursor: default;
+}
+
+/*Границы*/
+.ShowDetails__section,
+.AvatarUploader,
+.SectionAccordion,
+.ProfileSettings__subscribe,
+.Next-section.border,
+.calendar-month__days-grid,
+.calendar-month__header,
+.TabsList__tabs-invisible,
+.CommentsFeed__item:not(:last-child),
+.ManageListsRow,
+.unwatched-movies__item,
+.News-section.border,
+.episode-details__section.border,
+.Season__cover-container,
+.Season__details,
+.Season__episodes,
+.Season__news,
+.Season__ratings,
+.Season__special,
+.NoteExt:not(:last-child),
+.search-results__section,
+.Episode-section.border {
+  border-bottom: 1px solid var(--border-color);
+}
+.Row,
+.UnwatchedMovies__item {
+  border-bottom: 0px;
+}
+.SocialProvider+.SocialProvider,
+.unwatched-movies__item:first-child,
+.community-comments-movies__list,
+.CommunityComments__list,
+.UnwatchedMovies__item:first-child {
+  border-top: 1px solid var(--border-color);
+}
+.PageSection-separator,
+.UserBlock:after,
+.community__separator {
+  background: var(--border-color);
+}
+.AddFirst__button {
+  border: 1px solid var(--border-color);
+  color: var(--border-color);
+}
+.HtmlContent>hr {
+  border: 1px solid var(--border-color);
+}
+.ShowsTable .Row:not(:first-child),
+.MovieTableRow__short,
+.Wasted-shows .Row:not(:first-child) {
+  border-top: 1px solid #323232;
+}
+.community-comments-movies__list .Row:not(:last-child),
+.CommunityComments .Row:not(:last-child) {
+  border-bottom: 1px solid #323232;
+}
+.Unwatched-item:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/*Списки*/
+.ManageListsRow.favorite:nth-child(2n-1),
+.ManageListsRow:nth-child(2n-1) {
+  background-color: transparent;
+}
+.UserAction {
+  background-color: #444;
+  color: var(--font-color);
+}
+.UserAction.active:hover {
+  background: var(--myshows-color-dark);
+}
+.CustomFavoriteList {
+  background: transparent;
+  padding: 0;
+}
+.FavoriteButton-icon-active {
+  filter: contrast(0.7);
+}
+.episodes-by-season__season-row {
+  background: #1e1e2e;
+  position: static;
+}
+.episodes-by-season .episodes-by-season__season + .episodes-by-season__season {
+  border-top: 1px solid var(--border-color);
+}
+.episodes-by-season__episode:nth-child(2n),
+.UnwatchedEpisodeItem:nth-child(2n),
+.WatchSoon-episodes .Row:nth-child(2n),
+.UnwatchedMovies__item:nth-child(2n) {
+  background: #181825;
+}
+.UnwatchedEpisodeItem {
+  border-bottom: 0px;
+}
+.UnwatchedEpisodeItem__index {
+  color: var(--info-color);
+}
+.RowEpisodeBySeason__number {
+  padding-left: 8px;
+}
+.RowEpisodeBySeason__status,
+.episodes-by-season__status {
+  padding-right: 9px;
+}
+.WatchSoon-episode {
+  color: var(--info-color);
+}
+.WatchSoon-header {
+  border-top: 1px solid var(--border-color);
+}
+.WatchSoon-item:first-child .WatchSoon-header {
+  border-top: 0px;
+}
+.ShowCol-titleOriginal,
+.movie-col__titleOriginal {
+  margin-top: 0;
+}
+.Unwatched-item:not(:last-child) {
+  padding-bottom: 12px;
+}
+
+/*Рейтинг сезонов и серий*/
+.ShowRatingTable__cell {
+  background: var(--content-background);
+  border: 1px solid var(--border-color);
+  border-width: 0 1px 1px 0;
+}
+.show-legend__grid-item {
+  color: var(--font-color);
+}
+
+/*Информер*/
+.ShowInformer__show-more {
+  border-bottom: 1px dashed var(--link-color);
+  color: var(--link-color);
+}
+
+/*Галочки просмотра*/
+.EpisodeWatchLabel,
+.movie-watch-label {
+  background: #181825;
+  transition: all .1s ease-out;
+  border: 2px solid #313244;
+}
+.EpisodeWatchLabel:hover,
+.movie-watch-label:hover {
+  color: #cdd6f4;
+}
+
+/*Удаление скобок рейтинга*/
+.Counter>span.Counter-hooks {
+  color: var(--content-background);
+}
+
+/*Заголовки слайдера*/
+.SlidingTabs__tab.active .SlidingTabs__tab-title {
+  color: var(--title-color);
+}
+.SlidingTabs__tab-title {
+  color: var(--info-color);
+}
+.SlidingTabs__tab:hover .SlidingTabs__tab-title {
+  color: var(--title-color);
+}
+
+/*Трейлеры*/
+.Trailers__player-title {
+  color: var(--title-color);
+}
+
+/*Серая иконка кол-ва комментов*/
+.episode-col__meta .MyLabel.corner .MyLabel__wrapper,
+.NewsItem-date .MyLabel.corner .MyLabel__wrapper,
+.CommunityComments__list .MyLabel.corner .MyLabel__wrapper,
+.MyLabel.corner.EpisodeItem-counter .MyLabel__wrapper,
+.community-comments-movies__list .MyLabel.corner .MyLabel__wrapper {
+  background-color: #6c7086 !important;
+}
+.episode-col__meta .MyLabel.corner .MyLabel__wrapper .MyLabel__corner,
+.NewsItem-date .MyLabel.corner .MyLabel__wrapper .MyLabel__corner,
+.CommunityComments__list .MyLabel.corner .MyLabel__wrapper .MyLabel__corner,
+.MyLabel.corner.EpisodeItem-counter .MyLabel__wrapper .MyLabel__corner,
+.community-comments-movies__list .MyLabel.corner .MyLabel__wrapper .MyLabel__corner {
+  border-color: #6c7086 #6c7086 transparent transparent;
+}
+
+/*Красная иконка кол-ва комментов*/
+.MyLabel.corner .MyLabel__wrapper,
+.MyLabel.corner .MyLabel__wrapper[style*="var(--myshows-color);"] {
+  background-color: var(--myshows-color-dark) !important;
+}
+.MyLabel.corner .MyLabel__wrapper .MyLabel__corner,
+.MyLabel.corner .MyLabel__wrapper .MyLabel__corner[style*="var(--myshows-color);"] {
+  border-color: var(--myshows-color-dark) var(--myshows-color-dark) transparent transparent;
+}
+
+/*Выравнивание спешл-метки*/
+.MyLabel.episode-col__label.special {
+  order: -1;
+  margin-right: 8px;
+}
+
+/*Даты выхода эпизодов*/
+.episode-col.muted .episode-col__date {
+  color: var(--info-color);
+}
+.episode-col__date {
+  color: #a6adc8;
+}
+
+/*Описание эпизодов*/
+.EpisodeDescription__button {
+  background: #333;
+  color: #bfbfbf;
+  transition: all .2s;
+}
+.EpisodeDescription__button:hover {
+  background: #484848;
+  color: #e2e2e2;
+}
+
+/*Выравнивание сериалов в профиле*/
+.UserShowItem+.UserShowItem {
+  margin-top: 16px;
+}
+.UserShowItem-image img {
+  width: auto;
+  background-color: transparent;
+}
+.Progress__value,
+.Progress.m .Progress__container {
+  /*border-radius: 5px;*/
+  height: 2px;
+}
+.Progress__value {
+  background: var(--myshows-color);
+}
+.Progress__container {
+  background: #313244;
+}
+.Progress__secondary {
+  color: #7f849c;
+  font-weight: 600;
+}
+.Progress__slots {
+  top: -5px;
+}
+.UserShowItem-content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.UserShowItem-status {
+  margin-top: 4px;
+}
+@media (min-width: 1240px) {
+  .UserShowItem-image {
+    height: 100px;
+    margin-right: 20px;
+    width: 180px;
+  }
+  .UserShowItem-title {
+    font-size: 20px;
+    line-height: 1;
+    padding-top: 5px;
+  }
+  .UserShowItem-titleOriginal {
+    font-size: 15px;
+    line-height: 1;
+    padding-top: 9px;
+  }
+  .UserShowItem-rating {
+    margin-top: 8px;
+  }
+}
+
+/*Компактный вид сериалов*/
+.UserShowItem_mode_compact+.UserShowItem {
+  border-top-color: var(--border-color);
+  margin-top: 0;
+}
+.UserShowItem_mode_compact {
+  padding: 10px 0;
+}
+
+/*Заглушка эпизодов*/
+.EpisodeRatingCard__poster,
+.EpisodeItem-pic.placeholder {
+  background: var(--border-color);
+  border: 0;
+}
+.EpisodeRatingCard__placeholder-icon,
+.EpisodeItem-pic.placeholder .SvgSpriteIcon,
+.movie-active-poster__placeholder .SvgSpriteIcon,
+.PicturePoster-placeholderIcon,
+.ShowCatalogCard__poster-placeholder-icon,
+.movie-poster__placeholderIcon,
+.recommendation-col__pic__placeholder .SvgSpriteIcon,
+.UserShowItem-placeholder-icon {
+  filter: grayscale(1) opacity(.5) invert(1);
+}
+.EpisodeItem-air-date {
+  background: var(--myshows-color-dark);
+}
+.EpisodeItem-title {
+  color: var(--font-color);
+}
+.movie-poster__picture {
+  align-items: normal;
+}
+.recommendation-col__pic__placeholder-background {
+  border: 0;
+}
+.recommendation-col__pic:hover .recommendation-col__pic-overlay {
+  background: hsl(0deg 0% 0% / 20%);
+}
+.recommendation-col__pic-overlay__reject:hover {
+  color: var(--link-color);
+}
+.PicturePoster-picture img {
+  background-color: transparent;
+  overflow: hidden;
+}
+
+/*Красные бейджи рейтинга эпизодов*/
+.EpisodeRatingCard__badge {
+  background: var(--myshows-color-dark);
+  color: var(--font-color);
+}
+.EpisodeRatingCard__text {
+  color: var(--font-color);
+}
+.movie-item__rating {
+  background: var(--myshows-color-dark);
+}
+
+/*Актёры*/
+.show-character__name {
+  color: var(--font-color);
+}
+.show-character__initials {
+  background: var(--border-color);
+  color: var(--font-color);
+}
+
+/*Попапы*/
+.UserHeader__dropdown,
+.Share__dropdown {
+  background: var(--bg-popup);
+  box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 50%);
+  padding: 10px 20px;
+}
+.Share__dropdown-list {
+  padding: 0;
+}
+.Modal__wrapper,
+.Modal__header {
+  background: var(--bg-popup);
+}
+.Modal__close:hover {
+  color: #fff;
+}
+.AchievementModal__title {
+  color: var(--title-color);
+}
+.AchievementCard-description {
+  color: var(--font-color);
+}
+.movie-active-poster__info-place {
+  background: var(--bg-popup);
+  box-shadow: 0px 15px 20px 2px rgb(0 0 0 / 50%);
+}
+.movie-active-poster__info-place:before {
+  border-right: 12px solid var(--bg-popup);
+  border-bottom: 10px solid transparent;
+  border-top: 10px solid transparent;
+}
+.movie-active-poster__info-place--reverse:before {
+  border-left: 12px solid var(--bg-popup);
+  border-right: 0;
+}
+.ModalLoginForm__label {
+  color: var(--font-color);
+}
+.ModalLoginForm__forgot {
+  color: #cdd6f4;
+}
+.ModalLoginForm__social:hover {
+  background: #c4c4c4;
+}
+
+.ModalLoginForm__social {
+  background: #313244;
+  border-radius: 4px;
+  color: #b4befe;
+  transition: background-color .2s ease;
+  width: 60px;
+}
+    
+.ModalLoginForm__or {
+  color: #666;
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+    
+.Popover__content {
+  background: var(--bg-tooltip);
+  color: #252525;
+  border-radius: 5px;
+  box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 50%);
+}
+.Popover__content:before {
+  border: 6px solid transparent;
+  border-bottom-color: var(--bg-tooltip);
+  right: 48%;
+}
+
+/*Тултипы*/
+.tippy-box[data-theme=myshows] {
+  background-color: var(--bg-tooltip);
+  color: #252525;
+  border-radius: 5px;
+}
+.tippy-box {
+  --tooltip-bg-color: #303030;
+}
+.tippy-box[data-theme=myshows][data-placement^=top] .tippy-arrow {
+  border-top: 7px solid var(--bg-tooltip);
+  bottom: -13px;
+}
+.tippy-box[data-theme=myshows][data-placement^=bottom] .tippy-arrow {
+  border-bottom: 7px solid var(--bg-tooltip);
+}
+
+/*Тултипы репутации*/
+.tooltip,
+.tippy-box[data-theme=myshows-dropdown] {
+  background: var(--bg-popup);
+  box-shadow: 0px 10px 20px 0px rgb(0 0 0 / 50%);
+  border-radius: 10px;
+  border: 0;
+}
+.tooltip__arrow {
+  border-bottom: 8px solid var(--bg-popup);
+}
+.CommentMenu + .tooltip__arrow {
+  left: 7px !important;
+}
+.tooltip__arrow:before,
+.tippy-box[data-theme=myshows-dropdown][data-placement^=bottom] .tippy-arrow:before {
+  border-bottom: 8px solid var(--bg-popup);
+}
+.comment-voters__voter {
+  align-items: center;
+  border-bottom: 0;
+  margin: 0 0 1px 4px;
+}
+.comment-voters__list {
+  max-height: 150px;
+}
+.comment-voters__list::-webkit-scrollbar-track {
+  background-color: var(--bg-popup);
+  border-radius: 7px;
+}
+.comment-voters__list::-webkit-scrollbar-thumb {
+  background-color: #5e5e5e;
+  border: 2px solid #5e5e5e;
+  border-radius: 7px;
+}
+.comment-voters__popup {
+  padding: 10px 3px 10px 14px;
+}
+.DropdownMenu__container ul>a:hover, .DropdownMenu__container ul>li:hover {
+  color: var(--link-color);
+}
+.CommentMenu__item {
+  color: var(--font-color);
+}
+.DropdownMenu__button:hover{
+  color: var(--link-color);
+}
+.DropdownMenu__container ul>a:hover svg, .DropdownMenu__container ul>li:hover svg {
+  color: currentColor;
+}
+
+/*Контролы и настройки*/
+.Button {
+  align-items: center;
+  background: var(--myshows-color-deep-dark);
+  color: #fff4f4;
+}
+.Button:hover {
+  background: #780bf9;
+  color: #fff;
+}
+.Button--secondary,
+.Button--secondary:hover {
+  background: none;
+  color: var(--info-color);
+}
+.Button--light {
+  background: #484848;
+}
+.Button--light:hover {
+  background: #555;
+}
+.Radio-icon {
+  border: 2px solid #585858;
+}
+.Radio>input~.Radio-icon:after {
+  background: transparent;
+}
+.Select__field,
+.Select__field:focus,
+.SelectAutocomplete__field,
+.SelectAutocomplete__field:focus {
+  background: #11111b;
+  color: var(--font-color);
+  border: 1px solid var(--border-color);
+}
+.SelectAutocomplete__list {
+  background: #282828;
+  box-shadow: 0px 15px 20px 0px rgb(0 0 0 / 30%);
+}
+.SelectAutocomplete__option {
+  color: var(--font-color);
+}
+.SelectAutocomplete__list-header {
+  background: #282828;
+}
+.SelectAutocomplete__input {
+  background: #202020;
+  color: var(--font-color);
+  caret-color: var(--myshows-color);
+}
+.SelectAutocomplete__input:focus {
+  border: 1px solid var(--border-color);
+}
+.SelectAutocomplete__input-reset {
+  color: #fff;
+}
+.Button--info {
+  background: var(--bg-info-color);
+}
+.Button--info:hover {
+  background: var(--bg-info-color-hover);
+}
+.SocialProvider__icon {
+  background: var(--font-color);
+}
+.Button--dark {
+  background: #434343;
+}
+.Button--dark:hover {
+  background: #666;
+}
+.PushPermissionModal__text {
+  color: var(--info-color);
+}
+.Checkbox input~.Checkbox__input,
+.Checkbox input:checked~.Checkbox__input,
+.Checkbox input:checked:focus~.Checkbox__input,
+.Checkbox input:focus~.Checkbox__input,
+.Checkbox:hover input:not([disabled]):checked~.Checkbox__input,
+.Checkbox:hover input~.Checkbox__input {
+  background: #1f1f1f;
+}
+.SearchFilter__input {
+  background: rgb(22 22 22);
+  color: var(--font-color);
+  caret-color: var(--myshows-color);
+}
+.SearchFilter__input:focus {
+  border: 1px solid #585858;
+}
+.SearchFilter__input-reset {
+  color: var(--font-color);
+}
+.ProfileMovies__import-button {
+  background: transparent !important;
+  border: 1px solid #3d3d3d;
+}
+.ProfileMovies__import-button:hover {
+  background: #282828 !important;
+  border: 1px solid #454545;
+}
+.ProfileMoviesImportStart__card:hover {
+  background: #282828;
+  border-color: #454545;
+}
+.FiltersButton .SvgSpriteIcon {
+  filter: invert(1);
+}
+[data-rich-colors=true] [data-sonner-toast][data-type=success] {
+  background: #215227;
+  border-color: transparent;
+  color: #defbe7;
+  box-shadow: 0px 10px 10px 0px rgb(0 0 0 / 20%);
+}
+[data-rich-colors=true] [data-sonner-toast][data-type=error] {
+  background: #772728;
+  border-color: transparent;
+  color: #ffe6e6;
+  box-shadow: 0px 10px 10px 0px rgb(0 0 0 / 20%);
+}
+[data-rich-colors=true] [data-sonner-toast][data-type=info] {
+  background: #273e53;
+  border-color: transparent;
+  color: #d1e4f6;
+  box-shadow: 0px 10px 10px 0px rgb(0 0 0 / 20%);
+}
+[data-sonner-toast] [data-icon] svg {
+  filter: brightness(2) opacity(0.7);
+  margin-top: 3px;
+}
+[data-sonner-toast][data-styled=true] [data-button] {
+  background: rgb(255 255 255 / 20%);
+}
+.Button--purple {
+  background: #d414ff !important;
+}
+.Button--purple:hover {
+  background: #ba11e0 !important;
+}
+
+/*Поле ввода*/
+.Textarea__field,
+.Input__field {
+  background: rgb(17, 17, 27);
+  color: var(--font-color);
+  caret-color: var(--myshows-color);
+}
+.Textarea__field:focus,
+.Input__field:focus {
+  border-color: var(--border-color);
+}
+
+/*Пагинация*/
+.Pagination__link {
+  background: #11111b;
+  color: #d5d5d5;
+}
+.Pagination__link.active, .Pagination__link:hover {
+  background: var(--myshows-color-deep-dark);
+}
+
+/*Таб-фильтр*/
+.Tabs.compact .TabsItem.active .TabsItem-container {
+  background: var(--myshows-color-deep-dark);
+}
+.Tabs.compact .TabsItem-container {
+  background: #3e3e3e;
+  padding: 10px 15px;
+}
+.Tabs.compact .TabsItem-title {
+  color: #e4e4e4;
+}
+.Tabs.compact .TabsItem.active .TabsItem-title {
+  color: #fff4f4;
+}
+.Tabs.compact .TabsItem:first-child .TabsItem-container {
+  border-radius: 5px 0 0 5px;
+}
+.Tabs.compact .TabsItem:last-child .TabsItem-container {
+  border-radius: 0 5px 5px 0;
+}
+
+/*Рекомендации*/
+.recommendation-col-titleOriginal,
+.ShowItem__title-original {
+  color: var(--info-color);
+}
+.NewsItem-foreword {
+  color: var(--font-color);
+}
+
+/*Пункты бокового меню*/
+.ProfileNav.list .ProfileNav-item.router-link-active,
+.ListItem-slot,
+.EpisodesList__item {
+  color: var(--font-color);
+}
+.EpisodesList__list-item .ListItem-bullet {
+  background-color: #8f8f8f !important;
+}
+.EpisodesList__list-item--watched .ListItem-bullet {
+  background: var(--myshows-color) !important;
+}
+
+/*Бейджи статуса сериала*/
+.ShowStatusLabel.ShowStatusLabel--onair:before {
+  background: #468700;
+}
+.ShowStatusLabel.ShowStatusLabel--dead:before {
+  background: #626262;
+  content: "END";
+}
+.ShowStatusLabel.ShowStatusLabel--new:before {
+  background: #ab2626;
+}
+.ShowStatusLabel.ShowStatusLabel--paused:before {
+  border: .045rem solid #707070;
+}
+.ShowStatusLabel:before {
+  border-radius: 3px;
+  font-size: 0.55rem;
+  line-height: .5rem;
+  text-shadow: 0px 1px rgb(0 0 0 / 50%);
+}
+
+/*Бейдж репутации юзера*/
+.UserAvatar__rating-value--positive {
+  background: #468700;
+}
+
+/*Бейдж PRO*/
+.ProLabel {
+  background-color: var(--myshows-color-dark);
+  font-size: 8px;
+  height: 10px;
+  line-height: 8px;
+  padding: 1px 3px;
+}
+
+/*Взаимные друзья*/
+.UserItem-login__mutual {
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNS4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjQgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZmlsbD0iI2RlZGVkZSIgZD0iTTMyMy40IDg1LjJsLTk2LjggNzguNGMtMTYuMSAxMy0xOS4yIDM2LjQtNyA1My4xYzEyLjkgMTcuOCAzOCAyMS4zIDU1LjMgNy44bDk5LjMtNzcuMmM3LTUuNCAxNy00LjIgMjIuNSAyLjhzNC4yIDE3LTIuOCAyMi41bC0yMC45IDE2LjJMNTEyIDMxNi44VjEyOGgtLjdsLTMuOS0yLjVMNDM0LjggNzljLTE1LjMtOS44LTMzLjItMTUtNTEuNC0xNWMtMjEuOCAwLTQzIDcuNS02MCAyMS4yem0yMi44IDEyNC40bC01MS43IDQwLjJDMjYzIDI3NC40IDIxNy4zIDI2OCAxOTMuNyAyMzUuNmMtMjIuMi0zMC41LTE2LjYtNzMuMSAxMi43LTk2LjhsODMuMi02Ny4zYy0xMS42LTQuOS0yNC4xLTcuNC0zNi44LTcuNEMyMzQgNjQgMjE1LjcgNjkuNiAyMDAgODBsLTcyIDQ4VjM1MmgyOC4ybDkxLjQgODMuNGMxOS42IDE3LjkgNDkuOSAxNi41IDY3LjgtMy4xYzUuNS02LjEgOS4yLTEzLjIgMTEuMS0yMC42bDE3IDE1LjZjMTkuNSAxNy45IDQ5LjkgMTYuNiA2Ny44LTIuOWM0LjUtNC45IDcuOC0xMC42IDkuOS0xNi41YzE5LjQgMTMgNDUuOCAxMC4zIDYyLjEtNy41YzE3LjktMTkuNSAxNi42LTQ5LjktMi45LTY3LjhsLTEzNC4yLTEyM3pNMTYgMTI4Yy04LjggMC0xNiA3LjItMTYgMTZWMzUyYzAgMTcuNyAxNC4zIDMyIDMyIDMySDY0YzE3LjcgMCAzMi0xNC4zIDMyLTMyVjEyOEgxNnpNNDggMzIwYTE2IDE2IDAgMSAxIDAgMzIgMTYgMTYgMCAxIDEgMC0zMnpNNTQ0IDEyOFYzNTJjMCAxNy43IDE0LjMgMzIgMzIgMzJoMzJjMTcuNyAwIDMyLTE0LjMgMzItMzJWMTQ0YzAtOC44LTcuMi0xNi0xNi0xNkg1NDR6bTMyIDIwOGExNiAxNiAwIDEgMSAzMiAwIDE2IDE2IDAgMSAxIC0zMiAweiIvPjwvc3ZnPg==);
+  height: 12px;
+  min-width: 15px;
+  width: 15px;
+  filter: brightness(0.8);
+}
+
+/*Страница ачивок*/
+.achievement-item__description {
+  color: var(--font-color);
+}
+
+.ManageListsRow__icon-create, .ManageListsRow__icon-star {
+  color: var(--myshows-color);
+}
+
+.AsideHeading-toggler {
+  border-bottom: 1px dotted var(--font-color);
+}
+
+/*Календарь*/
+.calendar-day {
+  background-color: var(--content-background);
+  color: #fff;
+}
+.calendar-date-selector {
+  color: var(--title-color);
+}
+.calendar-day--today {
+  background-color: #474747;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.calendar-day--pastday {
+  color: #707070;
+}
+.calendar-day--selected {
+  background-color: var(--myshows-color-deep-dark);
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/*Заметки*/
+.Note__content-title {
+  color: var(--title-color);
+}
+.Note__content {
+  background: #11111b;
+}
+.Note__text {
+  color: var(--info-color);
+}
+
+.aside-user-lists__icon-active {
+  color: var(--myshows-color);
+}
+span.Counter.aside-user-lists__icon_counter {
+  color: var(--font-color) !important;
+}
+
+/*Кинопоиск*/
+.Home-section {
+  background: var(--content-background);
+}
+.Home-section+.Home-section>.Container:first-child:before {
+  background: var(--border-color);
+}
+.movie-item__title {
+  color: var(--info-color);
+}
+.ads-info--dark .ads-info__dots {
+  color: #fff;
+}
+.tippy-box[data-theme=myshows-white] {
+  color: #000;
+}
+
+/*Поиск*/
+.Search--new-light .Search-input,
+.Search-static .Search-input {
+  background: #11111b;
+  border: 1px solid #414141;
+  color: var(--font-color);
+  caret-color: var(--myshows-color);
+  box-shadow: none;
+}
+.Search--new-light.Search--opened .Search-toggler {
+  color: #11111b;
+}
+.Search-static .Search-submit {
+  background: var(--myshows-color-dark);
+}
+.search-results {
+  background: #1e1e2e;
+  border: 1px solid #11111b;
+  border-radius: 4px;
+  margin-top: 8px;
+  padding: 12px 0 6px;
+  box-shadow: 0px 15px 30px 0px rgb(0 0 0 / 50%);
+}
+.search-results__movies-title,
+.search-results__shows-title {
+  color: var(--title-color);
+}
+.search-results__movie--highlighted,
+.search-results__show--highlighted {
+  background: #11111b;
+}
+
+/*Жанры*/
+.ShowCatalogCard {
+  background: rgb(17 17 27 / 75%);
+  transition: none;
+  position: relative;
+  box-shadow: none;
+}
+.ShowCatalogCard:hover {
+  color: var(--info-color);
+  box-shadow: none;
+}
+.ShowCatalogCard:before {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(-45deg, #e500ff 0%, #00e5ff 100%);
+  transform: translate3d(0px, 5px, 0) scale(1);
+  filter: blur(10px);
+  opacity: 0;
+  transition: all 0.3s;
+  border-radius: inherit;
+}
+.ShowCatalogCard:hover:before {
+  opacity: 1;
+}
+.ShowCatalogCard:after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  border-radius: inherit;
+}
+.ShowsCatalog__total span,
+.MoviesCatalog__total span {
+  color: var(--font-color);
+}
+.FiltersPopular__link {
+  background: #313244;
+  border: 0px;
+  border-radius: 20px;
+  color: #bfbfbf;
+  padding: 3px 12px;
+}
+.FiltersPopular__link:hover {
+  background: var(--myshows-color-dark);
+}
+.FiltersPopular__link.active,
+.FiltersPopular__link.router-link-exact-active {
+  background: var(--myshows-color-dark);
+}
+.SearchField__input {
+  background: #11111b;
+  border: 1px solid #181825;
+  color: var(--font-color);
+  caret-color: var(--myshows-color);
+  border-right: 0;
+}
+.SearchField__submit {
+  background: var(--myshows-color-deep-dark);
+  color: #fff4f4;
+}
+.SearchField__submit:hover {
+  background: #b22e2e;
+  color: #fff;
+}
+.SearchField.light .SearchField__input:focus {
+  border-color: #585858;
+}
+.rating-flag {
+  background: var(--myshows-color-dark);
+}
+.rating-flag:after, .rating-flag:before {
+  border-left: 4px solid var(--myshows-color-dark);
+}
+.Filters__selected-item {
+  background: var(--myshows-color-dark);
+}
+.recommendation-col__pic-overlay__squad {
+  background: rgb(0 0 0 / 70%);
+  border-radius: 0 5px 5px 0;
+  padding-right: 2px;
+  bottom: 10px;
+}
+@media screen and (max-width: 767px) {
+  .ShowCatalogCard {
+    background: transparent;
+    border-bottom: 0;
+  }
+  .ShowCatalogCard__poster-image, .ShowCatalogCard__poster-placeholder, .ShowCatalogCard__poster {
+    border-radius: 10px;
+  }
+  .ShowCatalogCard:hover:before {
+    opacity: 0;
+  }
+}
+
+/*Сортировка*/
+.CatalogViewControls__button,
+.SortPanel__button {
+  color: var(--link-color);
+}
+.SortPanel__button:hover,
+.CatalogViewControls__button:hover {
+  color: var(--link-color-hover);
+}
+.CatalogViewControls__button--active,
+.CatalogViewControls__button--active:hover {
+  color: var(--title-color);
+  cursor: default;
+}
+.SortPanel__button--active,
+.SortPanel__button--active:hover {
+  color: var(--title-color);
+}
+
+/*Реакции*/
+.Reactions {
+  gap: 7px;
+}
+.ReactionButton__wrapper {
+  background: #181825;
+  color: #e4e4e4;
+  border-radius: 15px;
+  padding: 0 10px;
+}
+.ReactionButton--selected .ReactionButton__wrapper,
+.ReactionButton:hover .ReactionButton__wrapper {
+  background: #0172a4;
+  color: #fff;
+}
+.ReactionButton__emoji, .ReactionButton__title {
+  font-size: 16px;
+}
+.Emotions {
+  background: transparent;
+  border-width: 1px 1px 0 1px;
+  border-style: solid;
+  border-color: var(--border-color);
+  border-radius: 10px 10px 0 0;
+}
+.Emotions__close:hover {
+  color: var(--link-color);
+}
+.ReactionButton--full .ReactionButton__wrapper {
+  border-radius: 50px;
+}
+
+/*Новости*/
+.NewsDetails__meta a,
+.news-read-also-aside__item,
+.ReadAlsoMain__item {
+  color: var(--link-color);
+}
+.CategoriesNav-in a {
+  font-weight: 600;
+}
+.CategoriesNav-in a.router-link-active {
+  background: var(--myshows-color-deep-dark);
+}
+.HtmlContent h2,
+.HtmlContent h3,
+.HtmlContent h4,
+.HtmlContent h5,
+.HtmlContent h6 {
+  color: var(--title-color);
+}
+.NewsDetails__tag {
+  background: #555;
+}
+.NewsItem__pic,
+.ShowItem__poster {
+  background-color: #303030;
+}
+.NewsDetails__tag:hover {
+  color: #fff;
+}
+@media (min-width: 768px) {
+  .NewsItem-title:not(.compact) {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+}
+
+/*Премии*/
+.AwardYears__button.router-link-exact-active,
+.AwardYears__link.router-link-exact-active {
+  background: var(--myshows-color-dark);
+  border-radius: 0;
+}
+.AwardYears__button:hover,
+.AwardYears__link:hover,
+.AwardYears__dropdown-button:hover {
+  color: #fff;
+}
+.AwardYears__dropdown {
+  background: var(--bg-popup);
+  box-shadow: 0px 15px 20px 2px rgb(0 0 0 / 50%);
+}
+.AwardYears__dropdown-button {
+  background: var(--bg-popup);
+}
+.AwardYears__dropdown-link {
+  border-top: 1px solid var(--border-color);
+  color: #fff;
+}
+.ResultBar {
+  color: var(--info-color);
+}
+.title__secondary-l {
+  color: var(--title-color);
+}
+
+/*Итоги года*/
+.UserSummaryComment,
+.UserSummaryLikes,
+.UserSummaryRewards,
+.UserSummaryGenres {
+  background: var(--content-background);
+}
+.UserSummaryShows,
+.UserSummaryHero,
+.UserSummaryMovies {
+  background: #242423;
+}
+.UserSummaryMovies:before {
+  filter: brightness(0.15) contrast(1);
+}
+.UserSummaryInfo,
+.UserSummaryPage {
+  color: var(--title-color);
+}
+.UserSummaryComment__wrapper {
+  background: #4e4e4e;
+}
+.UserSummaryComment__text {
+  color: #fff;
+}
+.UserSummaryShare__url {
+  background: #2b2b2b;
+}
+.UserSummaryShare__url-field {
+  color: var(--font-color);
+}
+
+/*Pro подписка*/
+.BuyProCarousel-text {
+  color: var(--info-color);
+}
+.BuyPro__promo-code-field .Input__field {
+  border: 1px solid var(--border-color);
+}
+
+/*Футер*/
+.Footer,
+.text-menu-item a,
+.Footer__copyrights-text {
+  color: #cdd6f4;
+}
+a[href*="/about/donate/"] span,
+a[href*="/about/donate/"] svg {
+  color: #ff6699;
+}
+.Footer__social-link--telegram,
+.Footer__social-link--twitter,
+.Footer__social-link--vk,
+.Footer__social-link--instagram {
+  background: #ccc;
+  color: #000;
+}
+.Footer__social-link--dzen {
+  background: #000;
+  color: #ccc;
+}
+ .Footer__apps a:hover {
+  color:var(--link-color-hover);
+  text-decoration:none
+}
+.Footer__social-link--dzen:hover {
+  background:#000;
+  color:var(--link-color-hover);
+}
+.Donation__plan {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+}
+.Donation__plan-label {
+  color: var(--title-color);
+}
+.Donation__value--unselected {
+  background: transparent;
+  border: 1px solid #3d3d3d;
+  color: var(--bg-info-color);
+}
+
+/*Фикс ред колор линкс*/
+.SearchFilter__collapse,
+.comment-header__author--me,
+.UserHeader__stats-repeated,
+.UserStatsRewatches.UserStatisticsProgress__repeated,
+.CommentsFeedItem__show-comment-button,
+.Comment__name--me,
+.search-results__show-all-results,
+.comment-voters__voter--negative a,
+.link.pseudo {
+  color: #f13f3f !important;
+}
+
+/*Иконки-статусы просмотра сериалов*/
+.SvgSpriteIcon use[href*="#eye-finished"],
+.SvgSpriteIcon use[href*="#eye-watching"],
+.SvgSpriteIcon use[href*="#eye-cancelled"],
+.SvgSpriteIcon use[href*="#eye-later"],
+.SvgSpriteIcon use[href*="#eye-movie-finished"],
+.SvgSpriteIcon use[href*="#eye-movie-later"] {
+  opacity: 0;
+}
+.ShowsTable__icon-wrapper .SvgSpriteIcon,
+.MovieTableRow__watch-status span,
+.ShowsTable-watchStatus svg.SvgSpriteIcon {
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 20px;
+  width: 20px;
+  top: 0;
+  right: 0px;
+}
+.ShowCatalogCard__poster-wrapper span.ShowCatalogCard__status-icon svg,
+.movie-active-poster__status .SvgSpriteIcon {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  height: 20px;
+  width: 20px;
+}
+.ShowCatalogCard__poster-wrapper .ShowCatalogCard__status-icon,
+.movie-active-poster__status {
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  left: auto;
+}
+span[title="Полностью посмотрел"] svg,
+span[title="Повністю подивився"] svg,
+span[title="Watched all"] svg,
+.MovieTableRow__watch-status-finished svg,
+.movie-active-poster__status[title="Посмотрел"] svg,
+.movie-active-poster__status[title="Подивився"] svg,
+.movie-active-poster__status[title="Watched all"] svg {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyMTM0IDIxMzQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM6c2VyaWY9Imh0dHA6Ly93d3cuc2VyaWYuY29tLyIgc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoyOyI+PGc+PHBhdGggZD0iTTEwNjYuNjcsMjEzMy4zM2M1ODUuMTU2LDAgMTA2Ni42NywtNDgxLjUxIDEwNjYuNjcsLTEwNjYuNjdjMCwtNTg1LjE1NiAtNDgxLjUxLC0xMDY2LjY3IC0xMDY2LjY3LC0xMDY2LjY3Yy01ODUuMTU2LC0wIC0xMDY2LjY3LDQ4MS41MTEgLTEwNjYuNjcsMTA2Ni42N2MwLDU4NS4xNTYgNDgxLjUxMSwxMDY2LjY3IDEwNjYuNjcsMTA2Ni42N1oiIHN0eWxlPSJmaWxsOiMzNzliZmY7ZmlsbC1ydWxlOm5vbnplcm87Ii8+PHBhdGggZD0iTTE3NTUuNTMsNzg2LjA2MmwtNzQ3LjA3OSw3NDcuMDc5Yy00OS4xOTcsNDkuMTk2IC0xMjguNzQ4LDQ5LjE5NiAtMTc3LjQyMSwwbC0zMzQuOTUyLC0zMzQuOTUyYy00OS4xOTYsLTQ5LjE5NyAtNDkuMTk2LC0xMjguNzQ4IC0wLC0xNzcuNDIxYzQ5LjE5NiwtNDguNjcyIDEyOC43NDcsLTQ5LjE5NiAxNzcuNDIsMGwyNDUuOTgxLDI0NS45ODFsNjU4LjEwOCwtNjU4LjYzMWM0OS4xOTYsLTQ5LjE5NiAxMjguNzQ3LC00OS4xOTYgMTc3LjQyLDBjNDguNjcyLDQ5LjE5NiA0OS4xOTYsMTI4Ljc0NyAtMCwxNzcuNDJsMC41MjMsMC41MjRaIiBzdHlsZT0iZmlsbDojZmZmOyIvPjwvZz48L3N2Zz4=);
+}
+span[title="Полностью посмотрел"][class="ShowCatalogCard__status-icon"],
+span[title="Повністю подивився"][class="ShowCatalogCard__status-icon"],
+span[title="Watched all"][class="ShowCatalogCard__status-icon"],
+.movie-active-poster__status[title="Посмотрел"],
+.movie-active-poster__status[title="Подивився"],
+.movie-active-poster__status[title="Watched all"] {
+  background: linear-gradient(225deg, #379bff 40%, transparent 20%);
+  border-radius: 0 10px 0 0;
+}
+span[title="Смотрю"] svg,
+span[title="Дивлюся"] svg,
+span[title="Watching"] svg {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyMTM0IDIxMzQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM6c2VyaWY9Imh0dHA6Ly93d3cuc2VyaWYuY29tLyIgc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoyOyI+PHBhdGggZD0iTTEwNjYuNjcsMjEzMy4zM2M1ODUuMTU2LDAgMTA2Ni42NywtNDgxLjUxIDEwNjYuNjcsLTEwNjYuNjdjMCwtNTg1LjE1NiAtNDgxLjUxLC0xMDY2LjY3IC0xMDY2LjY3LC0xMDY2LjY3Yy01ODUuMTU2LC0wIC0xMDY2LjY3LDQ4MS41MTEgLTEwNjYuNjcsMTA2Ni42N2MwLDU4NS4xNTYgNDgxLjUxMSwxMDY2LjY3IDEwNjYuNjcsMTA2Ni42N1oiIHN0eWxlPSJmaWxsOiMyZWFlMzM7ZmlsbC1ydWxlOm5vbnplcm87Ii8+PHBhdGggZD0iTTc0OS4xMiw1MTIuMjE0Yy0zOC43MjMsMjEuNCAtNjIuNjcxLDYyLjY3MSAtNjIuNjcxLDEwNi40OWwtMCw4OTYuNzZjLTAsNDQuMzI5IDIzLjk0OCw4NS4wOTEgNjIuNjcxLDEwNi40OTFjMzguNzI0LDIxLjQgODUuNiwyMC44OSAxMjMuODE0LC0yLjU0OGw3MzMuNzEzLC00NDguMzhjMzYuMTc2LC0yMi40MTkgNTguNTk1LC02MS42NTIgNTguNTk1LC0xMDQuNDUyYzAsLTQyLjggLTIyLjQxOSwtODIuMDMzIC01OC41OTUsLTEwNC40NTJsLTczMy43MTMsLTQ0OC4zOGMtMzcuNzA0LC0yMi45MjkgLTg1LjA5LC0yMy45NDggLTEyMy44MTQsLTIuNTQ4bDAsMS4wMTlaIiBzdHlsZT0iZmlsbDojZmZmO2ZpbGwtcnVsZTpub256ZXJvOyIvPjwvc3ZnPg==);
+}
+span[title="Смотрю"][class="ShowCatalogCard__status-icon"],
+span[title="Дивлюся"][class="ShowCatalogCard__status-icon"],
+span[title="Watching"][class="ShowCatalogCard__status-icon"] {
+  background: linear-gradient(225deg, #2eae33 40%, transparent 20%);
+  border-radius: 0 10px 0 0;
+}
+span[title="Перестал смотреть"] svg,
+span[title="Припинив дивитися"] svg,
+span[title="Stopped watching"] svg {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyMTM0IDIxMzQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM6c2VyaWY9Imh0dHA6Ly93d3cuc2VyaWYuY29tLyIgc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoyOyI+PGc+PHBhdGggZD0iTTEwNjYuNjcsMjEzMy4zM2M1ODUuMTU2LDAgMTA2Ni42NywtNDgxLjUxIDEwNjYuNjcsLTEwNjYuNjdjMCwtNTg1LjE1NiAtNDgxLjUxLC0xMDY2LjY3IC0xMDY2LjY3LC0xMDY2LjY3Yy01ODUuMTU2LC0wIC0xMDY2LjY3LDQ4MS41MTEgLTEwNjYuNjcsMTA2Ni42N2MwLDU4NS4xNTYgNDgxLjUxMSwxMDY2LjY3IDEwNjYuNjcsMTA2Ni42N1oiIHN0eWxlPSJmaWxsOiNhYjI2MjY7ZmlsbC1ydWxlOm5vbnplcm87Ii8+PHBhdGggZD0iTTU5OS45MDIsNTk5LjkwMmM1NC4xODYsLTU0LjE4NyAxNDEuODA2LC01NC4xODcgMTk1LjQxNiwtMGwyNzAuOTMyLDI3MC45MzFsMjcwLjkzMiwtMjcwLjkzMWM1NC4xODYsLTU0LjE4NyAxNDEuODA2LC01NC4xODcgMTk1LjQxNiwtMGM1My42MSw1NC4xODYgNTQuMTg3LDE0MS44MDYgMCwxOTUuNDE2bC0yNzAuOTMxLDI3MC45MzJsMjcwLjkzMSwyNzAuOTMyYzU0LjE4Nyw1NC4xODYgNTQuMTg3LDE0MS44MDYgMCwxOTUuNDE2Yy01NC4xODYsNTMuNjEgLTE0MS44MDYsNTQuMTg3IC0xOTUuNDE2LDBsLTI3MC45MzIsLTI3MC45MzFsLTI3MC45MzIsMjcwLjkzMWMtNTQuMTg2LDU0LjE4NyAtMTQxLjgwNiw1NC4xODcgLTE5NS40MTYsMGMtNTMuNjEsLTU0LjE4NiAtNTQuMTg3LC0xNDEuODA2IC0wLC0xOTUuNDE2bDI3MC45MzEsLTI3MC45MzJsLTI3MC45MzEsLTI3MC45MzJjLTU0LjE4NywtNTQuMTg2IC01NC4xODcsLTE0MS44MDYgLTAsLTE5NS40MTZaIiBzdHlsZT0iZmlsbDojZmZmO2ZpbGwtcnVsZTpub256ZXJvOyIvPjwvZz48L3N2Zz4=);
+}
+span[title="Перестал смотреть"][class="ShowCatalogCard__status-icon"],
+span[title="Припинив дивитися"][class="ShowCatalogCard__status-icon"],
+span[title="Stopped watching"][class="ShowCatalogCard__status-icon"] {
+  background: linear-gradient(225deg, #ab2626 40%, transparent 20%);
+  border-radius: 0 10px 0 0;
+}
+span[title="Буду смотреть"] svg,
+span[title="Дивитимуся"] svg,
+span[title="Going to watch"] svg,
+.MovieTableRow__watch-status-later svg,
+.movie-active-poster__status[title="Буду смотреть"] svg,
+.movie-active-poster__status[title="Дивитимуся"] svg,
+.movie-active-poster__status[title="Going to watch"] svg {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj48c3ZnIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyMTM0IDIxMzQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM6c2VyaWY9Imh0dHA6Ly93d3cuc2VyaWYuY29tLyIgc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoyOyI+PGc+PHBhdGggZD0iTTEwNjYuNjcsMjEzMy4zM2M1ODUuMTU2LDAgMTA2Ni42NywtNDgxLjUxIDEwNjYuNjcsLTEwNjYuNjdjMCwtNTg1LjE1NiAtNDgxLjUxLC0xMDY2LjY3IC0xMDY2LjY3LC0xMDY2LjY3Yy01ODUuMTU2LC0wIC0xMDY2LjY3LDQ4MS41MTEgLTEwNjYuNjcsMTA2Ni42N2MwLDU4NS4xNTYgNDgxLjUxMSwxMDY2LjY3IDEwNjYuNjcsMTA2Ni42N1oiIHN0eWxlPSJmaWxsOiM1MDUwNTA7ZmlsbC1ydWxlOm5vbnplcm87Ii8+PHBhdGggZD0iTTg5NC40NDQsNzIyLjIyMmwwLDY4OC44ODljMCw5NS4yNjEgLTc2Ljk2MSwxNzIuMjIyIC0xNzIuMjIyLDE3Mi4yMjJjLTk1LjI2LDAgLTE3Mi4yMjIsLTc2Ljk2MSAtMTcyLjIyMiwtMTcyLjIyMmwwLC02ODguODg5YzAsLTk1LjI2IDc2Ljk2MiwtMTcyLjIyMiAxNzIuMjIyLC0xNzIuMjIyYzk1LjI2MSwwIDE3Mi4yMjIsNzYuOTYyIDE3Mi4yMjIsMTcyLjIyMlptNjg4Ljg4OSwwbDAsNjg4Ljg4OWMwLDk1LjI2MSAtNzYuOTYxLDE3Mi4yMjIgLTE3Mi4yMjIsMTcyLjIyMmMtOTUuMjYsMCAtMTcyLjIyMiwtNzYuOTYxIC0xNzIuMjIyLC0xNzIuMjIybC0wLC02ODguODg5Yy0wLC05NS4yNiA3Ni45NjIsLTE3Mi4yMjIgMTcyLjIyMiwtMTcyLjIyMmM5NS4yNjEsMCAxNzIuMjIyLDc2Ljk2MiAxNzIuMjIyLDE3Mi4yMjJaIiBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87Ii8+PGNsaXBQYXRoIGlkPSJfY2xpcDEiPjxwYXRoIGQ9Ik04OTQuNDQ0LDcyMi4yMjJsMCw2ODguODg5YzAsOTUuMjYxIC03Ni45NjEsMTcyLjIyMiAtMTcyLjIyMiwxNzIuMjIyYy05NS4yNiwwIC0xNzIuMjIyLC03Ni45NjEgLTE3Mi4yMjIsLTE3Mi4yMjJsMCwtNjg4Ljg4OWMwLC05NS4yNiA3Ni45NjIsLTE3Mi4yMjIgMTcyLjIyMiwtMTcyLjIyMmM5NS4yNjEsMCAxNzIuMjIyLDc2Ljk2MiAxNzIuMjIyLDE3Mi4yMjJabTY4OC44ODksMGwwLDY4OC44ODljMCw5NS4yNjEgLTc2Ljk2MSwxNzIuMjIyIC0xNzIuMjIyLDE3Mi4yMjJjLTk1LjI2LDAgLTE3Mi4yMjIsLTc2Ljk2MSAtMTcyLjIyMiwtMTcyLjIyMmwtMCwtNjg4Ljg4OWMtMCwtOTUuMjYgNzYuOTYyLC0xNzIuMjIyIDE3Mi4yMjIsLTE3Mi4yMjJjOTUuMjYxLDAgMTcyLjIyMiw3Ni45NjIgMTcyLjIyMiwxNzIuMjIyWiIgY2xpcC1ydWxlPSJub256ZXJvIi8+PC9jbGlwUGF0aD48ZyBjbGlwLXBhdGg9InVybCgjX2NsaXAxKSI+PHBhdGggZD0iTTE1ODMuMzMsNzIyLjIyMmwwLDY4OC44ODljMCw5NS4yNjEgLTc2Ljk2MSwxNzIuMjIyIC0xNzIuMjIyLDE3Mi4yMjJjLTk1LjI2LDAgLTE3Mi4yMjIsLTc2Ljk2MSAtMTcyLjIyMiwtMTcyLjIyMmwtMCwtNjg4Ljg4OWMtMCwtOTUuMjYgNzYuOTYyLC0xNzIuMjIyIDE3Mi4yMjIsLTE3Mi4yMjJjOTUuMjYxLDAgMTcyLjIyMiw3Ni45NjIgMTcyLjIyMiwxNzIuMjIyWiIgc3R5bGU9ImZpbGw6I2ZmZjsiLz48cGF0aCBkPSJNODk0LjQ0NCw3MjIuMjIybDAsNjg4Ljg4OWMwLDk1LjI2MSAtNzYuOTYxLDE3Mi4yMjIgLTE3Mi4yMjIsMTcyLjIyMmMtOTUuMjYsMCAtMTcyLjIyMiwtNzYuOTYxIC0xNzIuMjIyLC0xNzIuMjIybDAsLTY4OC44ODljMCwtOTUuMjYgNzYuOTYyLC0xNzIuMjIyIDE3Mi4yMjIsLTE3Mi4yMjJjOTUuMjYxLDAgMTcyLjIyMiw3Ni45NjIgMTcyLjIyMiwxNzIuMjIyWiIgc3R5bGU9ImZpbGw6I2ZmZjsiLz48L2c+PC9nPjwvc3ZnPg==);
+}
+span[title="Буду смотреть"][class="ShowCatalogCard__status-icon"],
+span[title="Дивитимуся"][class="ShowCatalogCard__status-icon"],
+span[title="Going to watch"][class="ShowCatalogCard__status-icon"],
+.movie-active-poster__status[title="Буду смотреть"],
+.movie-active-poster__status[title="Дивитимуся"],
+.movie-active-poster__status[title="Going to watch"] {
+  background: linear-gradient(225deg, #505050 40%, transparent 20%);
+  border-radius: 0 9px 0 0;
+}
+.ShowCatalogCard__status-icon {
+  right: 5px;
+  top: 5px;
+}
+
+@media (min-width: 960px) {
+  .Page__aside {
+    border-left: 1px solid var(--border-color);
+  }
+}
+}
